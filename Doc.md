@@ -1,11 +1,11 @@
 # Documentation for the A+ language
 
 ## 1. Data Types
-| Name	    | Size		| Purpose		        		     | Range 	             |
-|:---------:|:-------:| -------------------------- | ------------------- |
-| bool    	| 1 byte	| Boolean			               | `true` or `false`   |
+| Name	    | Size		| Purpose		        	 | Range 	           |
+|:---------:|:---------:| -------------------------- | ------------------- |
+| bool    	| 1 byte    | Boolean			         | `true` or `false`   |
 | uint8    	| 1 byte	| 8-bit unsigned integer     | 0 - 255        	   |
-| string    | n bytes | String of ASCII characters | N/A                 |
+| string    | n bytes   | String of ASCII characters | N/A                 |
 
 
 ## 2. Syntax
@@ -18,11 +18,11 @@ Example: `/* This is a comment. */`
 
 ----
 ### Keywords
-| Keyword	  | Purpose		        			              | Example 	            	|
+| Keyword   | Purpose		        			    | Example 	              |
 |:---------:| ------------------------------------- | ----------------------- |
-| var     	|	Declares a mutable variable.          | `var uint8 foo;`        |
-| con	    	| Creates a constant.                  	| `con uint8 BAR = 23;`   |
-| print	   	| Prints a string to stdout.           	| `print "Hello, world!"` |
+| var     	| Declares a mutable variable.          | `var uint8 foo;`        |
+| con	    | Creates a constant.                  	| `con uint8 BAR = 23;`   |
+| print	   	| Prints a line to stdout.           	| `print "Hello, world!";`|
 
 ### `var`
 Use `var uint8 foo;` to declare a uint8 variable named foo. The `var` keyword must always be followed by the variable type. Variables must be declared before they are assigned.
@@ -31,7 +31,7 @@ Use `var uint8 foo;` to declare a uint8 variable named foo. The `var` keyword mu
 Use `con uint8 BAR = 23;` to create a constant. The `con` keyword must always be followed by the variable type. Constants must be set when they are declared.
 
 ### `print`
-Use `print "Hello, World!";` to print a string to stdout. `print` can only print strings and will not create a new line unless `\n` is included.
+Use `print "Hello, World!";` to print a string to stdout followed by a new line. `print` can print any data type, but will print the ASCII equivalent characters for each byte.
 
 ----
 ### Control Flow
@@ -59,12 +59,12 @@ while(foo < 10) {
 
 ----
 ### Operators
-| Operator	| Type		| Purpose		        			| Example 		|
-|:---------:| ------- | ----------------------- | ----------- |
-| +		    	| Binary	| Adds two numbers.			  | `a + b`		  |
-| -		    	| Binary	| Subtracts two numbers.	| `a - b`	  	|
-| \*	    	| Binary	| Multiplies two numbers.	| `a * b`	  	|
-| /	    		| Binary	| Divides two numbers.		| `a / b`	  	|
+| Operator	| Type		| Purpose                   | Example 		|
+|:---------:| --------- | ------------------------- | ------------- |
+| +		    | Binary	| Adds two numbers.		    | `a + b`	    |
+| -		    | Binary	| Subtracts two numbers.	| `a - b` 	    |
+| \*	    | Binary	| Multiplies two numbers.	| `a * b`  	    |
+| /	    	| Binary	| Divides two numbers.		| `a / b`  	    |
 
 
 ## 3. ????
