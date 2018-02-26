@@ -1,4 +1,4 @@
-/* Prints the first 10 Fibonacci numbers */
+/* Prints the first 12 Fibonacci numbers */
 
 var int a;
 var int b;
