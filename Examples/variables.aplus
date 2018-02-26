@@ -1,0 +1,17 @@
+/* variable */
+var uint8 x;
+set x = 150;
+set x += 75;
+
+/* constant */
+con bool state = true;
+con uint8 y = 25;
+
+var int z;
+set z = x - y;
+set z = z * 2;
+
+print "Value of variable 'z':";
+print z;
+print "Value of constant 'state':";
+print state;
