@@ -2,23 +2,20 @@
  # Input: .aplus source file
  # Output: python program output
 
-lines = []	# a list to store all lines of program
-linenum = 0
-
 vars = {}	# a dict to hold all variables created by program
 cons = {}	# a dict to hold all constants created by program
 types = {}	# a dict to hold types for each variable/constant
 
 def throwError(msg, lnum):
-	print("<== Error: " + msg + " Line #" + str(lnum) + " ==>")
-	return 1
+	print("<== Error: " + msg + " Line #" + str(lnum+1) + " ==>")
+	return -1
 
 def handleKeyword(keyword, args, lnum):
 	### `var` ###
 	if keyword == "var":
 		# args[0] will be variable type / args[1] will be variable name
 		if (len(args) != 2):
-			return throwError("Incorrect number of arguments to `set` keyword.", lnum)
+			return throwError("Incorrect number of arguments to `var` keyword.", lnum)
 		elif args[1] in vars:
 			return throwError("Variable named '"+ args[0] +"' already exists. Try `set` instead.", lnum)
 		elif args[1] in cons:
@@ -222,7 +219,7 @@ def handleKeyword(keyword, args, lnum):
 
 	return 0
 
-def handleLoop(cond, lnum):
+def handleLoop(cond, lnum, lines):
 	if (cond[0].isalpha() and cond not in ['true', 'false']):
 		# Make sure variable/constant is an integer. If so, fetch variable/constant value.
 		if cond in types:
@@ -244,7 +241,6 @@ def handleLoop(cond, lnum):
 		else:
 			iters = int(cond)
 
-	global lines
 	# Line 1: Expect a '{' here
 	lnum += 1
 	line = lines[lnum]
@@ -256,13 +252,12 @@ def handleLoop(cond, lnum):
 
 	for i in range(iters):
 		lnum += 1
-		nextline = lines[lnum]
-		while nextline.strip() != '}':
-			parseLine(nextline, lnum)
 
+		while lines[lnum].strip() != '}':
+			parseLine(lines, lnum)
 			lnum += 1
 			try:
-				nextline = lines[lnum]
+				lines[lnum]
 			except IndexError:
 				return throwError("Reached end of file. Expected '}' to end loop.", lnum)
 			except:
@@ -270,16 +265,11 @@ def handleLoop(cond, lnum):
 		if i < iters-1:
 			lnum = start_lnum  # reset line number for next iteration (unless we are on last iteration)
 
+	return lnum  # return last line number so global line counter can be updated
 
-	# Update global line counter
-	global linenum
-	linenum = lnum
-
-	return 0
-
-def parseLine(l, lnum):
+def parseLine(lines, lnum):
 	# Used to parse a single line of A+ code. Returns the line
-	l = l.strip()  # remove newline characters and trailing/leading whitespace
+	l = lines[lnum].strip()  # remove newline characters and trailing/leading whitespace
 
 	# Read the last character in the line.
 	if (l[-1] == ';'):
@@ -298,11 +288,11 @@ def parseLine(l, lnum):
 		else:
 			condition = l[l.find('(')+1 : l.find(')')]
 			if ctrl == 'loop':
-				return handleLoop(condition, lnum)
+				return handleLoop(condition, lnum, lines)
 			elif ctrl == 'while':
-				return handleWhile(condition, lnum)
+				return handleWhile(condition, lnum, lines)
 			elif ctrl == 'if':
-				return handleIf(condition, lnum)
+				return handleIf(condition, lnum, lines)
 
 
 	elif (l[:2] == '/*'):
@@ -318,7 +308,12 @@ def parseLine(l, lnum):
 
 	return 0
 
+
+
 if __name__ == "__main__":
+	lines = []	# a list to store all lines of program
+	linenum = 0
+
 	error = False
 	print("\n<== Interpreter starting. ==>")
 
