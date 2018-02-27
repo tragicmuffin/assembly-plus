@@ -56,7 +56,7 @@ The `print` keyword will output a literal string or the contents of a variable t
 ----
 ### Control Flow
 
-#### `if`
+### `if`
 The condition line of the `if` statement must be wrapped in parentheses ( ) and ended with a colon :. The conditional block must be wrapped in braces { } which must start on the following line.  
 *Example:*  
 ```
@@ -66,7 +66,7 @@ if(foo == 1):
 }
 ```
 
-#### `while`
+### `while`
 The condition line of the `while` statement must be wrapped in parentheses ( ) and ended with a colon :. The conditional block must be wrapped in braces { } which must start on the following line.  
 *Example:*  
 ```
@@ -79,7 +79,7 @@ while(foo < 10):
 }
 ```
 
-#### `loop`
+### `loop`
 Loops for the specified number of iterations, which may be a literal or an integer. The iteration expression of the `loop` statement must be wrapped in parentheses ( ) and ended with a colon :. The conditional block must be wrapped in braces { } which must start on the following line.  
 *Example:*  
 ```
