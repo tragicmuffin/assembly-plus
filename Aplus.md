@@ -5,7 +5,7 @@
 |:---------:|:---------:| -------------------------- | ------------------- |
 | bool    	| 1 byte    | Boolean			         | `true` or `false`   |
 | uint8    	| 1 byte	| 8-bit unsigned integer     | 0 - 255        	   |
-| int       | n bytes   | Integer                    |                     |
+| int       | n bytes   | Integer                    | N/A                 |
 | string    | n bytes   | String of ASCII characters | N/A                 |
 
 
@@ -49,8 +49,8 @@ The `con` keyword must always be followed by the variable type. Constants must b
 *Example: Use `con int BAR = 42;` to create a constant of type int named BAR with value 42.*
 
 ### `print`
-The `print` keyword will output a literal string or the contents of a variable to stdout.
-*Example: Use `print "Hello, World!";` to print the string "Hello, World!" to stdout, followed by a new line.*
+The `print` keyword will output a literal string or the contents of a variable to stdout.  
+*Example: Use `print "Hello, World!";` to print the string "Hello, World!" to stdout, followed by a new line.*  
 *Example: Use `print foo;` to print the contents of the variable foo to stdout, followed by a new line.*
 
 ----
