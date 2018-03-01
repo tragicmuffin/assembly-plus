@@ -11,6 +11,7 @@ import json
 import cgi
 
 # Assume CGI by default. Turn off when -nocgi is passed in command line argument.
+# To pass in a file, use file="path/file.aplus" with or without double-quotes
 use_cgi = True
 try:
 	if "-nocgi" in sys.argv[1:]:
@@ -38,34 +39,45 @@ lines = []	# a list to store all lines of program
 linenum = 0
 
 error = False
-print("<== Interpreter starting. ==>\n")
+print(">>> Interpreter starting.\n")
 
 try:
 	if(use_cgi):
+		form = "JSON"
 		src = d['stdin']  # run code from JSON input
 	else:
-		src = open('Examples\\fibonacci.aplus', 'r')  # run from file
+		form = "file"
+		for arg in sys.argv[1:]:
+			if arg.find('file=') > -1:
+				sourcepath = arg[arg.find('file=')+5:].strip('"')
+				break
+		src = open(sourcepath, 'r')  # run from file
 
 except:
-	print("<== Error: Cannot read file. ==>")
-	print("\n<== Interpreter stopped. ==>\n")
+	print(">>> Error: Cannot read "+ form +".")
+	print("\n>>> Interpreter stopped.\n")
 	error = True
 
-
-### Web only ###
-if(use_cgi):
-	# Read input from JSON
-	# Separate lines into list
-	lines = src.split('\n')
-################
-else:
-	# Read from file
-	# Dump all lines of program into a list
-	line = src.readline()
-	while line != '':
-		lines.append(line)
+if not error:
+	### Web only ###
+	if(use_cgi):
+		# Read input from JSON
+		# Separate lines into list
+		try:
+			lines = src.split('\n')
+		except NameError:
+			print(">>> Error: Cannot read JSON.")
+			print("\n>>> Interpreter stopped.\n")
+			error = True
+	################
+	else:
+		# Read from file
+		# Dump all lines of program into a list
 		line = src.readline()
-	src.close()
+		while line != '':
+			lines.append(line)
+			line = src.readline()
+		src.close()
 
 # Iterate through lines in list for parsing
 while not error:
@@ -86,10 +98,10 @@ while not error:
 
 	# A 0 will be returned from parseLine unless an error occurs, in which case a -1 is returned.
 	if code == -1:
-		print("\n<== Interpreter stopped. ==>\n")
+		print("\n>>> Interpreter stopped.\n")
 		error = True
 		break
 
 # Loop finished
 if not error:
-	print("\n<== Program finished successfully. ==>\n")
+	print("\n>>> Program finished successfully.\n")

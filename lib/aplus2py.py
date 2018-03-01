@@ -276,7 +276,12 @@ def parseLine(lines, lnum):
 		# This is a basic statement
 		l = l[:-1]  # remove semicolon
 		tokens = l.split() # make a list of words in the line
-		return handleKeyword(tokens[0], tokens[1:], lnum) # pass keywords and arguments to handler
+		try:
+			return handleKeyword(tokens[0], tokens[1:], lnum) # pass keywords and arguments to handler
+		except:
+			throwError("Cannot read line.", lnum)
+			return -1
+
 
 	elif (l[-1] == ':'):
 		# This is a conditional (if/while) statement
