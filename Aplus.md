@@ -80,7 +80,7 @@ while(foo < 10):
 ```
 
 ### `loop`
-Loops for the specified number of iterations, which may be a literal or an integer. The iteration expression of the `loop` statement must be wrapped in parentheses ( ) and ended with a colon :. The conditional block must be wrapped in braces { } which must start on the following line.  
+Loops for the specified number of iterations, which may be a literal, a variable, or a constant. The iteration expression of the `loop` statement must be wrapped in parentheses ( ) and ended with a colon :. The conditional block must be wrapped in braces { } which must start on the following line.  
 *Example:*  
 ```
 loop(10):
